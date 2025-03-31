@@ -8,7 +8,6 @@ import MoreButton from "./components/Buttoon/MoreButton";
 import { useRef, useEffect, useState } from "react";
 import CompanyInformation from "./components/CompanyInfo";
 import ContactUs from "./components/ContactUs";
-import Image from 'next/image';
 import VideoHeader from "./components/VideoHeader";
 import ProjectGrid from './components/ProjectGrid';
 import ServicesSection from './components/ServicesSection';
