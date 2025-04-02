@@ -5,9 +5,9 @@ import Header from "@/app/components/Header/MyHeader";
 import Footer from "@/app/components/Footer/Footer";
 
 export const metadata: Metadata = {
-title: "Web開発ポートフォリオ | フロントエンドからバックエンドまで | kazuya ide",
+title: "合同会社L.SECURUTY",
 description:
-"kazuya ide のポートフォリオサイト。フロントエンド(React, Next.js)からバックエンド(WordPress, Node.js)まで、幅広いWeb開発スキルを活かした作品を掲載しています。実績やブログ記事も公開中。",
+"北海道を代表する警備会社。サービスの質に抜群の評価をいただいております。",
 };
 
 export default function RootLayout({
