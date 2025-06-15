@@ -1,46 +1,83 @@
 "use client";
+import { useEffect, useState } from "react";
+import Link from "next/link";
 
-import Image from 'next/image';
+// 投稿データ型
+type WPPost = {
+  id: number;
+  title: { rendered: string };
+  date: string;
+};
+
+const WP_API_URL = process.env.NEXT_PUBLIC_WP_API_URL;
 
 export default function NewsSection() {
+  const [posts, setPosts] = useState<WPPost[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const res = await fetch(WP_API_URL + "?per_page=5&_embed");
+        const data = await res.json();
+        setPosts(data);
+      } catch {
+        setPosts([]);
+      }
+      setLoading(false);
+    };
+    fetchPosts();
+  }, []);
+
   return (
-    <div className="bg-yellow-500">
-      <div className="flex">
-        {/* Left Side: Text Content */}
-        <div className="w-1/2 pr-8">
-          <div className="text-4xl font-bold mb-2">NEWS</div>
-          <div className="text-lg mb-4">最新情報</div>
+    <section className="flex flex-col items-center w-full my-12">
+      {/* 上の横棒 */}
+      <hr className="w-24 border-t-2 border-yellow-400 mb-2" />
 
-          {/* 画像を追加 */}
-          <div className="mb-4">
-            <Image
-              src="/Twitter、ホームタブにリストをタブ表示してスワイプで切り替え可能に – OREFOLDER.png" // 適切なパスに修正
-              alt="News"
-              width={400} // サイズを調整
-              height={300} // サイズを調整
-              objectFit="cover" // または contain
-            />
-          </div>
-
-          <div className="mb-4">
-
-          </div>
-
-        </div>
-
-        {/* Right Side: Image Content */}
-        <div className="w-1/2 relative"> {/* w-1/2 の領域に position: relative を設定 */}
-          <div className="absolute inset-0"> {/* 絶対配置で親要素いっぱいに広げる */}
-            <Image
-              src="/神姫警備保障株式会社  警備員手配、巡回警備、イベント警備、駐車場管理、コールセンター等は、安心安全警備の神姫警備 保障株式会社へお任せ下さ.jpg"
-              alt="Executive Protection"
-              layout="fill" // fill に変更
-              objectFit="cover" // cover に変更
-              className="object-cover"
-            />
-          </div>
-        </div>
+      {/* NEWSテキスト */}
+      <div className="text-center mb-2">
+        <div className="text-xl md:text-2xl font-bold tracking-widest uppercase text-yellow-600 drop-shadow-sm">NEWS</div>
+        <div className="text-base md:text-lg font-bold tracking-widest uppercase text-neutral-700">最新情報</div>
       </div>
-    </div>
+
+      {/* 下の横棒 */}
+      <hr className="w-24 border-t-2 border-yellow-400 my-2" />
+
+      {/* 投稿一覧 */}
+      <div className="w-full max-w-xl mt-4 rounded-xl bg-white/80 shadow-md p-4">
+        {loading ? (
+          <div className="text-center text-gray-500 py-4">読み込み中...</div>
+        ) : posts.length === 0 ? (
+          <div className="text-center text-gray-400 py-4">投稿がありません</div>
+        ) : (
+          <ul>
+            {posts.map((post) => (
+              <li
+                key={post.id}
+                className="py-3 px-2 border-b border-gray-100 flex flex-col gap-1 hover:bg-yellow-50 transition"
+              >
+                <Link
+                  href={`/blog/${post.id}`}
+                  className="text-base font-semibold text-yellow-700 hover:underline"
+                >
+                  <span dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
+                </Link>
+                <span className="text-xs text-gray-500">
+                  {new Date(post.date).toLocaleDateString()}
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+
+      {/* 一覧はこちらボタン */}
+      <Link
+        href="/blog"
+        className="mt-8 inline-block px-7 py-3 rounded-full bg-yellow-500 text-black font-bold shadow hover:bg-yellow-600 transition-all text-lg"
+      >
+        一覧はこちら
+      </Link>
+    </section>
   );
 }

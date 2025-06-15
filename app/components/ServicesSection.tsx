@@ -2,35 +2,35 @@
 
 import React from 'react';
 import Image from 'next/image';
-// framer-motion をインポート
 import { motion } from 'framer-motion';
 
-// --- 元の imageData はそのまま ---
+// --- 元の imageData ---
+
 const imageData = [
   {
     src: '/Business Meeting_edited_edited.jpg',
     alt: '法人のお客様向け',
     title: '法人のお客様向け',
     description: '警護、警備においての最重要課題は顧客・契約先(クライアント)の安全保障です。それを維持管理するには警護に携わるスタッフの資質が大きく影響します。合同会社L.SECURITYは、護身防衛能力の向上に努めています。',
-    link: '/',
+    link: '/business', // ← ここを法人向けページのパスに
   },
   {
     src: '/ボディガード.jpg',
     alt: '個人のお客様向け',
     title: '個人のお客様向け',
     description: '私たちは、お客様一人ひとりの安全と安心を第一に考え、お客様のニーズに合わせた最適な警備サービスを提供しています。高度な訓練を受けた警備員が、お客様の安全を24時間体制で守ります。',
-    link: '/',
+    link: '/personal', // ← ここを個人向けページのパスに
   },
 ];
-// --- ここまで変更なし ---
 
-// --- framer-motion の variants 定義 ---
+
+// framer-motionのvariants
 const sentenceVariants = {
   hidden: { opacity: 1 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.05, // タイピング速度
+      staggerChildren: 0.05,
     },
   },
 };
@@ -38,40 +38,39 @@ const sentenceVariants = {
 const letterVariants = {
   hidden: {
     opacity: 0,
-    y: 10, // オプション: 下から登場
+    y: 10,
   },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.1, // 文字の表示速度
+      duration: 0.1,
       ease: "easeOut",
     },
   },
 };
-// --- ここまで variants 定義 ---
 
 const ServicesSection = () => {
-  const headlineText = "Crafted Security: Customized Solutions for You"; // アニメーションさせるテキスト
+  // 1行目とfor youでテキスト分割
+  const beforeText = "Crafted Security: Customized Solutions";
+  const afterText = "for You";
 
   return (
-    // --- 外側の div は変更なし ---
     <div className="bg-black py-16 text-white">
       <div className="container mx-auto px-4">
 
-        {/* Customized Solution Headline */}
+        {/* ヘッドライン */}
         <div className="mb-12 text-center">
-          {/* ▼▼▼ ここから h2 の変更 ▼▼▼ */}
           <motion.h2
-            className="text-4xl font-bold tracking-tight" // 元のクラス名を維持
+            className="text-4xl font-bold tracking-tight"
             variants={sentenceVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.5 }}
-            aria-label={headlineText} // アクセシビリティのため
-            // style={{ minHeight: '1.2em' }} // オプション: 高さ固定
+            aria-label={`${beforeText} ${afterText}`}
           >
-            {headlineText.split("").map((char, index) => (
+            {/* 1行目（splitで1文字ずつアニメーション） */}
+            {beforeText.split("").map((char, index) => (
               <motion.span
                 key={char + "-" + index}
                 variants={letterVariants}
@@ -80,21 +79,31 @@ const ServicesSection = () => {
                 {char === ' ' ? '\u00A0' : char}
               </motion.span>
             ))}
+            {/* スマホで改行し、for Youだけをまとまりで表示 */}
+            <span className="block md:inline">
+              {" "}
+              {afterText.split("").map((char, index) => (
+                <motion.span
+                  key={"forYou-" + index}
+                  variants={letterVariants}
+                  style={{ display: 'inline-block', willChange: 'opacity, transform' }}
+                >
+                  {char === ' ' ? '\u00A0' : char}
+                </motion.span>
+              ))}
+            </span>
           </motion.h2>
-          {/* ▲▲▲ ここまで h2 の変更 ▲▲▲ */}
-
-          {/* --- サブタイトルは元のまま --- */}
           <p className="mt-2 text-lg text-yellow-500">お客様の安心を、精密に設計。</p>
         </div>
 
-        {/* --- Description Section は元のまま --- */}
+        {/* 説明文 */}
         <div className="mb-8 text-center">
           <p className="text-lg">
             私たちL securityは創業から現在にわたり、北海道での幅広い分野の警備に努めており、今後も北海道の警備業界全体の基盤を支えるスペシャリストとして、幅広いニーズに高い技術力で応える独自のサービスを提供してまいります。個人のお客様から法人のお客様まで、1号警備から4号警備まで幅広い分野にてお客様の期待に応えられるよう今後も誠意を持って努めてまいります。
           </p>
         </div>
 
-        {/* --- Image and Button Section は元のまま --- */}
+        {/* 画像とボタン */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {imageData.map((item, index) => (
             <div key={index} className="relative">
@@ -128,7 +137,6 @@ const ServicesSection = () => {
             </div>
           ))}
         </div>
-        {/* --- ここまで変更なし --- */}
 
       </div>
     </div>

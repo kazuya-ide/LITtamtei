@@ -11,7 +11,7 @@ import ContactUs from "./components/ContactUs";
 import VideoHeader from "./components/VideoHeader";
 import ProjectGrid from './components/ProjectGrid';
 import ServicesSection from './components/ServicesSection';
-
+import RecruitCard from "./components/RecruitCard";
 
 export default function Home() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -83,12 +83,14 @@ export default function Home() {
         <VideoHeader />
         </div>
           <div style={{ position: 'relative', zIndex: 1, marginTop: '4rem' }}>
-         
+          <CompanyInformation />
+          <div className="mt-10"></div>
+          
           <ServicesText titleText="SERVICES" subtitleText="事業情報" />
           <ImageGrid />
           <div className="flex justify-center mt-4 mb-20">
-    <MoreButton />
-</div>
+          <MoreButton />
+          </div>
           <ServicesText titleText="WORKS" subtitleText="実績例" />
           <div className="mt-10"></div>
           <ProjectGrid/>
@@ -96,16 +98,14 @@ export default function Home() {
           <ServicesSection/>
           <NewsSection/>
           <div className="mt-10"></div>
-          <CompanyInformation />
-          <div className="mt-10"></div>
-          
          
+         <RecruitCard />
        
           <ContactUs />
         
-          <div className="mt-10"> {/* 上部にマージンを追加 */}
+        <div className="mt-10"> {/* 上部にマージンを追加 */}
           <GoogleMaps/>
-         </div>
+        </div>
          <SocialLinks/>
           </div>
         </div>

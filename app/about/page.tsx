@@ -1,205 +1,209 @@
 "use client";
-
-import { useRef, useEffect, useState, useLayoutEffect } from "react";
-import { motion } from "framer-motion";
 import Image from "next/image";
-import Link from "next/link";
-import { FaGithub } from "react-icons/fa";
+import { useState } from "react";
 
-
-const AboutPage = () => {
-  const aboutRef = useRef<HTMLDivElement | null>(null);
-  const [isClient, setIsClient] = useState(false);
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: 0.8,
-        ease: "easeInOut",
-      },
-    },
-  };
-
-  const textVariants = {
-    hidden: { x: -50, opacity: 0 },
-    visible: {
-      x: 0,
-      opacity: 1,
-      transition: { duration: 0.6, ease: "easeInOut" },
-    },
-  };
-
-  const listItemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: (i: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.4, delay: i * 0.1, ease: "easeInOut" },
-    }),
-  };
-  
-
-  useLayoutEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  useEffect(() => {
-    if (isClient) {
-      const aboutElement = aboutRef.current;
-
-      if (aboutElement) {
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                aboutElement.classList.add("animate-fadeIn");
-                observer.unobserve(entry.target);
-              }
-            });
-          },
-          { threshold: 0.2 }
-        );
-        observer.observe(aboutElement);
-
-        return () => {
-          if (aboutElement) {
-            observer.unobserve(aboutElement);
-          }
-        };
-      }
-    }
-  }, [isClient]);
+export default function AboutPage() {
+  // 認可画像モーダル制御
+  const [showModal, setShowModal] = useState(false);
 
   return (
-    <div className="relative">
-       <motion.div
-        className="fixed inset-0 z-0 overflow-hidden"
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-          suppressHydrationWarning={true}
-        style={{
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        }}
-
-      >
-        <motion.div
-          className="absolute inset-0 z-0"
-        >
-            <Image
-              src="/2.png"
-              alt="背景画像"
-              fill
-              style={{ objectFit: "cover" }}
-              priority
-              className="opacity-50"
-            />
-        </motion.div>
-      </motion.div>
-      <div
-        className="container relative max-w-7xl mx-auto py-16 text-white text-center z-10"
-        ref={aboutRef}
-      >
-        <motion.h2
-          className="text-3xl font-bold mb-8 text-white"
-          variants={textVariants}
-        >
-          自己紹介
-        </motion.h2>
-        <div className="mb-8">
-          <motion.p
-            className="text-white mb-4"
-            variants={textVariants}
-          >
-            はじめまして、井手和弥と申します。
-            <br />
-            Web開発者として、主にフロントエンド開発を担当しています。
-          </motion.p>
-          <motion.p
-            className="text-white mb-4"
-            variants={textVariants}
-          >
-            特に、React、Next.js を用いた開発が好きで、UI/UX デザインにも興味があります。
-            <br />
-            このサイトもnext.jsとvercelを使ってwordpressから投稿を更新できるように設計しました。
-            <br />
-            ユーザーにとって使いやすいウェブサイトを制作することを念頭に置いております。
-          </motion.p>
-          <motion.p
-            className="text-white mb-4"
-            variants={textVariants}
-          >
-            WordPress を使用した開発経験もあり、お客様のニーズに合わせたウェブサイト構築が可能です。
-            <br />
-            常に新しい技術を学び、自己成長を続けています。
-          </motion.p>
+    <div className="min-h-screen bg-neutral-900 pb-20">
+      {/* HEROタイトル */}
+      <section className="flex flex-col md:flex-row items-center md:items-start gap-10 pt-12 pb-8 px-[8%]">
+        <div className="flex-1 w-full">
+          <h1 className="text-5xl md:text-6xl font-extrabold text-white tracking-tighter leading-tight mb-2">
+            COMPANY<br />INFORMATION
+          </h1>
+          <div className="text-yellow-400 text-xl font-bold mb-6">企業情報</div>
         </div>
-        <motion.h3
-          className="text-2xl font-bold mb-4 text-white"
-          variants={textVariants}
+        <div className="w-full md:w-2/5 max-w-xl aspect-[4/3] rounded-xl overflow-hidden shadow-xl border border-gray-700">
+          <Image
+            src="/8b38290a-62fa-428f-9c84-a3e150bf5cfd.png"
+            alt="会社ビル外観"
+            fill
+            className="object-cover"
+            priority
+            sizes="(max-width: 768px) 100vw, 50vw"
+          />
+        </div>
+      </section>
+
+      {/* セクションナビ */}
+      <section className="flex flex-wrap gap-4 px-[8%] mb-8 border-b border-neutral-700 pb-3">
+        {["はじめに", "企業理念", "社長あいさつ", "会社概要", "認可"].map((item, idx) => (
+          <a
+            key={item}
+            href={`#section${idx + 1}`}
+            className="uppercase tracking-wider text-lg font-bold text-yellow-400 hover:text-yellow-200 transition"
+          >
+            {item}
+          </a>
+        ))}
+      </section>
+
+      {/* --- Section 1: はじめに --- */}
+      <section id="section1" className="max-w-5xl mx-auto px-4 py-12 border-b border-neutral-800">
+        <div className="flex items-center gap-3 mb-6">
+          <span className="w-8 h-1 bg-yellow-400 inline-block rounded"></span>
+          <h2 className="text-2xl md:text-3xl font-bold text-yellow-400">はじめに</h2>
+        </div>
+        <p className="text-gray-100 text-lg leading-relaxed mb-2">
+          警護、警備においての最重要課題は顧客・契約先（クライアント）の安全保障です。<br />
+          それを維持管理するには警護に携わるスタッフの資質が大きく影響します。
+        </p>
+        <p className="text-gray-300 text-base leading-relaxed mt-4">
+          私たちは常に「武道」を通して護身防衛能力の向上に努めています。<br />
+          日々の厳しい練習・生活を通じて強靭な精神力や、実行力、洞察力、判断力、威圧感、責任感、礼節感などを体得することが最大限に必要な要素であると考えています。
+        </p>
+      </section>
+
+      {/* --- Section 2: 企業理念 --- */}
+      <section id="section2" className="max-w-5xl mx-auto px-4 py-12 border-b border-neutral-800">
+        <div className="flex items-center gap-3 mb-6">
+          <span className="w-8 h-1 bg-yellow-400 inline-block rounded"></span>
+          <h2 className="text-2xl md:text-3xl font-bold text-yellow-400">企業理念</h2>
+        </div>
+        <p className="text-gray-100 text-lg leading-relaxed mb-2">
+          「すべての人に安全と安心を。」<br />
+          <span className="text-yellow-300 font-semibold">L security</span>は、犯罪や事故を未然に防ぎ、誰もが安心して生活できる社会の実現を目指します。
+        </p>
+        <ul className="list-disc list-inside mt-3 text-gray-300 text-base space-y-1 pl-5">
+          <li>お客様・社会からの信頼を最も大切にする</li>
+          <li>誠実で真摯な対応を貫く</li>
+          <li>社員が誇りを持ち、成長できる環境を作る</li>
+          <li>プロフェッショナル集団として技術・知識を磨き続ける</li>
+          <li>地域社会の発展に貢献する</li>
+        </ul>
+      </section>
+
+      {/* --- Section 3: 社長あいさつ --- */}
+      <section id="section3" className="max-w-5xl mx-auto px-4 py-12 border-b border-neutral-800">
+        <div className="flex items-center gap-3 mb-6">
+          <span className="w-8 h-1 bg-yellow-400 inline-block rounded"></span>
+          <h2 className="text-2xl md:text-3xl font-bold text-yellow-400">社長あいさつ</h2>
+        </div>
+        <div className="flex flex-col md:flex-row items-start gap-10">
+          <div className="flex-1">
+            <p className="text-gray-100 text-lg leading-relaxed mb-2">
+              Lセキュリティは、お客様と社会の安全を守ることを最大の使命としています。<br />
+              犯罪や事故を未然に防ぎ、皆様が安心して暮らせる環境づくりに全力を尽くします。
+            </p>
+            <p className="text-gray-300 text-base leading-relaxed mt-4">
+              信頼される警備会社を目指し、社員一人ひとりが誇りを持って働ける環境づくりにも努めています。<br />
+              常に技術・知識の向上を図り、地域社会の発展に貢献してまいります。
+            </p>
+            <div className="mt-8 text-right text-lg text-gray-200 font-bold">
+              代表　堀内 勝
+            </div>
+          </div>
+          <div className="w-full md:w-1/3 min-w-[220px] aspect-square rounded-xl overflow-hidden shadow-lg border border-gray-700 mt-8 md:mt-0">
+            <Image
+              src="/about_ceo.jpg"
+              alt="社長写真"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 33vw"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* --- Section 4: 会社概要 --- */}
+      <section id="section4" className="max-w-3xl mx-auto bg-white rounded-2xl shadow-md px-8 py-12 mt-16 mb-10 border-t-4 border-yellow-400">
+        <div className="flex items-center gap-3 mb-8">
+          <span className="w-8 h-1 bg-yellow-400 inline-block rounded"></span>
+          <h2 className="text-2xl md:text-3xl font-bold text-yellow-700">会社概要</h2>
+        </div>
+        <table className="w-full text-left text-gray-800 border-separate [border-spacing:0.5rem]">
+          <tbody>
+            <tr>
+              <th className="font-semibold w-36 align-top">会社名</th>
+              <td>合同会社　LIT</td>
+            </tr>
+            <tr>
+              <th className="font-semibold align-top">屋号</th>
+              <td>L security</td>
+            </tr>
+            <tr>
+              <th className="font-semibold align-top">代表取締役</th>
+              <td>堀内　勝</td>
+            </tr>
+            <tr>
+              <th className="font-semibold align-top">所在地</th>
+              <td>
+                〒063-0061<br />
+                北海道札幌市西区西町北１４丁目１−１５<br />
+                ホクシンビル３F
+              </td>
+            </tr>
+            <tr>
+              <th className="font-semibold align-top">業務内容</th>
+              <td>
+                1号警備　施設警備<br />
+                2号警備　交通誘導、雑踏警備<br />
+                3号警備　現金輸送、貴重品運搬<br />
+                4号警備　身辺警護、要人送迎
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      {/* --- Section 5: 認可 --- */}
+      <section id="section5" className="max-w-3xl mx-auto flex flex-col items-center bg-white rounded-2xl shadow-md px-8 py-14 mb-24 border-t-4 border-yellow-400 relative">
+        <div className="flex items-center gap-3 mb-8">
+          <span className="w-8 h-1 bg-yellow-400 inline-block rounded"></span>
+          <h2 className="text-2xl md:text-3xl font-bold text-yellow-700">認可</h2>
+        </div>
+        <button
+          className="w-full max-w-xl overflow-hidden rounded-lg border border-yellow-200 shadow focus:outline-none"
+          onClick={() => setShowModal(true)}
+          tabIndex={0}
+          aria-label="認可証明画像を拡大表示"
         >
-          主なスキル
-        </motion.h3>
-        <motion.ul
-          className="text-white mb-8 pl-6 list-none"
-          variants={textVariants}
-        >
-          {[
-            "JavaScript",
-            "TypeScript",
-            "React",
-            "Next.js",
-            "HTML5",
-            "CSS3",
-            "Tailwind CSS",
-            "WordPress",
-            "Framer Motion",
-          ].map((skill, index) => (
-            <motion.li
-              key={skill}
-              variants={listItemVariants}
-              custom={index}
-               className="py-2 border-b border-gray-300  hover:bg-gray-100 transition-colors duration-200 inline-block text-white"
-              style={{ padding: "0 10px", width: "fit-content" }}
-            >
-              {skill}
-            </motion.li>
-          ))}
-        </motion.ul>
-        <motion.h3
-          className="text-2xl font-bold mb-4 text-white"
-          variants={textVariants}
-        >
-          今後の目標
-        </motion.h3>
-        <motion.p
-          className="text-white mb-4"
-          variants={textVariants}
-        >
-          今後は、バックエンド技術にも挑戦し、より幅広い開発ができるようにスキルアップを目指しています。
-          <br /> また、チームでの開発を出来るようにgithubのブランチ等の勉強を進めて、より高品質なウェブサイトを提供できるようにしたいです。
-        </motion.p>
-        <motion.p
-          className="text-white mb-4"
-          variants={textVariants}
-        >
-          もし何かご質問やご依頼などございましたら、お気軽にお問い合わせください。
-        </motion.p>
-        <motion.div
-          className="mt-4 flex items-center justify-center"
-          variants={textVariants}
-        >
-            <Link href="https://github.com/kazuya-ide" className="mr-4 hover:text-blue-500">
-                <FaGithub size={24} color="white" />
-                <span className="sr-only">GitHub</span>
-            </Link>
-        </motion.div>
-   
-      </div>
+          <div className="relative w-full aspect-[3/2] bg-gray-100">
+            <Image
+              src="/アセット 13.svg"
+              alt="認可証明"
+              fill
+              className="object-contain"
+              sizes="(max-width: 768px) 100vw, 80vw"
+              priority
+            />
+          </div>
+        </button>
+        <div className="mt-2 text-gray-600 text-sm">画像クリックで拡大</div>
+        {/* モーダル：認可画像拡大 */}
+        {showModal && (
+          <div
+            className="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center"
+            onClick={() => setShowModal(false)}
+          >
+            <div className="bg-white rounded-xl shadow-xl p-4 max-w-3xl w-[96vw] flex flex-col items-center relative">
+              <button
+                className="absolute top-2 right-2 bg-yellow-500 hover:bg-yellow-700 text-white font-bold rounded-full p-1 w-8 h-8 flex items-center justify-center focus:outline-none"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowModal(false);
+                }}
+                aria-label="閉じる"
+              >
+                ×
+              </button>
+              <div className="w-full">
+                <Image
+                  src="/アセット 13.svg"
+                  alt="認可証明 拡大"
+                  width={900}
+                  height={600}
+                  className="object-contain w-full h-auto"
+                  priority
+                />
+              </div>
+            </div>
+          </div>
+        )}
+      </section>
     </div>
   );
-};
-
-export default AboutPage;
+}

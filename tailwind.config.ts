@@ -94,6 +94,7 @@ const config: Config = {
     }
   },
   plugins: [require("tailwindcss-animate")], // tailwindcss-animateをpluginsに追加
+  
 }
 
 export default config;
