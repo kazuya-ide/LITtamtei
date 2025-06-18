@@ -1,13 +1,13 @@
 "use client";
-import SocialLinks from './components/SocialLinks';
+
 import NewsSection from './components/NewsSection';
-import GoogleMaps from './components/GoogleMaps';
+
 import ImageGrid from "./components/ImageGrid";
 import ServicesText from "./components/atoms/ServicesText";
 import MoreButton from "./components/Buttoon/MoreButton";
 import { useRef, useEffect, useState } from "react";
 import CompanyInformation from "./components/CompanyInfo";
-import ContactUs from "./components/ContactUs";
+
 import VideoHeader from "./components/VideoHeader";
 import ProjectGrid from './components/ProjectGrid';
 import ServicesSection from './components/ServicesSection';
@@ -84,9 +84,10 @@ export default function Home() {
         </div>
           <div style={{ position: 'relative', zIndex: 1, marginTop: '4rem' }}>
           <CompanyInformation />
-          <div className="mt-10"></div>
-          
+          <div className="mt-20"></div>
+         
           <ServicesText titleText="SERVICES" subtitleText="事業情報" />
+           <div className="mt-10"></div>
           <ImageGrid />
           <div className="flex justify-center mt-4 mb-20">
           <MoreButton />
@@ -100,13 +101,8 @@ export default function Home() {
           <div className="mt-10"></div>
          
          <RecruitCard />
-       
-          <ContactUs />
-        
-        <div className="mt-10"> {/* 上部にマージンを追加 */}
-          <GoogleMaps/>
-        </div>
-         <SocialLinks/>
+       <div className="mb-20"></div>
+          
           </div>
         </div>
       </div>

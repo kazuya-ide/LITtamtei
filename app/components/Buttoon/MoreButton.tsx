@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Link from 'next/link';
 
 const Button = styled.button`
   background-color: black;
@@ -11,9 +12,9 @@ const Button = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px; /* 矢印とテキストの間隔 */
+  gap: 10px;
   &:hover {
-    background-color: #333; /* ホバー時の背景色 */
+    background-color: #333;
   }
 `;
 
@@ -28,10 +29,14 @@ const Arrow = styled.span`
 
 const MoreButton = () => {
   return (
-    <Button>
-      <Arrow />
-      MORE
-    </Button>
+    <Link href="/projects" passHref legacyBehavior>
+      <a style={{ textDecoration: "none" }}>
+        <Button>
+          <Arrow />
+          MORE
+        </Button>
+      </a>
+    </Link>
   );
 };
 

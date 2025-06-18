@@ -2,8 +2,32 @@
 import Image from "next/image";
 import { useState } from "react";
 
+// みんなの声データ
+const voices = [
+  {
+    name: "YUTA",
+    role: "警備スタッフ",
+    message:
+      "警備は想像以上にクリエイティブな仕事です。お客様や仲間の安全を守ることが、自分の成長にも直結しています。L securityの仲間とならどんな現場も乗り越えられる自信があります。",
+    image: "/illust_staff1.svg",
+  },
+  {
+    name: "MISAKI",
+    role: "現場サポート",
+    message:
+      "この会社は新しい挑戦を楽しめる場所。若いチームですが、互いに支え合う雰囲気があってとても心強いです。『警備＝堅い仕事』のイメージがいい意味で変わりました！",
+    image: "/illust_staff2.svg",
+  },
+  {
+    name: "MAKOTO",
+    role: "リーダー",
+    message:
+      "警備の仕事は“誰かの日常”を守る、社会に必要不可欠な役割だと実感しています。会社のこれからを仲間たちと一緒に作っていけるのが嬉しいですね。",
+    image: "/illust_staff3.svg",
+  },
+];
+
 export default function AboutPage() {
-  // 認可画像モーダル制御
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -30,10 +54,10 @@ export default function AboutPage() {
 
       {/* セクションナビ */}
       <section className="flex flex-wrap gap-4 px-[8%] mb-8 border-b border-neutral-700 pb-3">
-        {["はじめに", "企業理念", "社長あいさつ", "会社概要", "認可"].map((item, idx) => (
+        {["はじめに", "企業理念", "みんなの声", "会社概要", "認可"].map((item) => (
           <a
             key={item}
-            href={`#section${idx + 1}`}
+            href={`#${item}`}
             className="uppercase tracking-wider text-lg font-bold text-yellow-400 hover:text-yellow-200 transition"
           >
             {item}
@@ -76,35 +100,36 @@ export default function AboutPage() {
         </ul>
       </section>
 
-      {/* --- Section 3: 社長あいさつ --- */}
+      {/* --- Section 3: みんなの声 --- */}
       <section id="section3" className="max-w-5xl mx-auto px-4 py-12 border-b border-neutral-800">
         <div className="flex items-center gap-3 mb-6">
           <span className="w-8 h-1 bg-yellow-400 inline-block rounded"></span>
-          <h2 className="text-2xl md:text-3xl font-bold text-yellow-400">社長あいさつ</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-yellow-400">みんなの声</h2>
         </div>
-        <div className="flex flex-col md:flex-row items-start gap-10">
-          <div className="flex-1">
-            <p className="text-gray-100 text-lg leading-relaxed mb-2">
-              Lセキュリティは、お客様と社会の安全を守ることを最大の使命としています。<br />
-              犯罪や事故を未然に防ぎ、皆様が安心して暮らせる環境づくりに全力を尽くします。
-            </p>
-            <p className="text-gray-300 text-base leading-relaxed mt-4">
-              信頼される警備会社を目指し、社員一人ひとりが誇りを持って働ける環境づくりにも努めています。<br />
-              常に技術・知識の向上を図り、地域社会の発展に貢献してまいります。
-            </p>
-            <div className="mt-8 text-right text-lg text-gray-200 font-bold">
-              代表　堀内 勝
+        <p className="text-gray-200 text-lg mb-8">
+          L securityの現場で活躍する仲間たちの声を紹介します。<br />
+          新しいチームだからこそ、前向きなエネルギーとチャレンジ精神があふれています。
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {voices.map((voice) => (
+            <div
+              key={voice.name}
+              className="flex flex-col items-center bg-neutral-800 rounded-xl shadow-lg p-6 h-full"
+            >
+              <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-yellow-400 mb-3 flex items-center justify-center bg-gray-900">
+                <Image
+                  src={voice.image}
+                  alt={voice.name}
+                  width={96}
+                  height={96}
+                  className="object-cover w-full h-full"
+                />
+              </div>
+              <div className="text-gray-100 text-base mb-3 whitespace-pre-line">&quot;{voice.message}&quot;</div>
+              <div className="mt-auto text-yellow-400 font-bold">{voice.name}</div>
+              <div className="text-gray-400 text-sm">{voice.role}</div>
             </div>
-          </div>
-          <div className="w-full md:w-1/3 min-w-[220px] aspect-square rounded-xl overflow-hidden shadow-lg border border-gray-700 mt-8 md:mt-0">
-            <Image
-              src="/about_ceo.jpg"
-              alt="社長写真"
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 33vw"
-            />
-          </div>
+          ))}
         </div>
       </section>
 
