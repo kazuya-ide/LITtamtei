@@ -12,37 +12,16 @@ export default function Footer() {
         <div className="flex-1 flex flex-col items-center md:items-start">
           <div className="flex flex-col items-center md:items-start">
             {/* ロゴ */}
-            <div className="w-36 h-10 relative mb-4">
+            <div className="w-44 h-14 relative mb-4">
               <Image
                 src="/レイヤー 1.png"
                 alt="L security ロゴ"
                 fill
                 className="object-contain"
-                sizes="144px"
+                sizes="176px"
               />
             </div>
             <div className="text-2xl font-extrabold tracking-wide mb-2">L security</div>
-            {/* SNSアイコン（LINE/Instagram） */}
-            <div className="flex gap-3 mb-3">
-              <a
-                href="https://line.me/ti/p/XXXXXXX"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:opacity-80"
-                aria-label="公式LINE"
-              >
-                <Image src="/line.svg" alt="LINE" width={28} height={28} className="rounded-full" />
-              </a>
-              <a
-                href="https://www.instagram.com/XXXXXXX"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:opacity-80"
-                aria-label="Instagram"
-              >
-                <Image src="/instagram.svg" alt="Instagram" width={28} height={28} className="rounded-full" />
-              </a>
-            </div>
             {/* MAPボタン */}
             <div className="flex items-center mb-1">
               <a
@@ -53,7 +32,7 @@ export default function Footer() {
                 style={{ whiteSpace: "nowrap" }}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 12.414A5 5 0 1112.414 13.414l4.243 4.243a1 1 0 101.414-1.414zM15 11a4 4 0 11-8 0 4 4 0 018 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 12.414A5 5 0 1112.414 13.414l4.243 4.243a1 1 0 101.414-1.414zM15 11a4 4 0 11-8 0 018 0z" />
                 </svg>
                 MAP
               </a>
@@ -78,7 +57,6 @@ export default function Footer() {
               >
                 011-215-6432
               </a>
-              <span className="ml-1">FAX: 011-215-6432</span>
             </div>
             {/* Email */}
             <div className="text-xs text-gray-400 mb-2">
@@ -111,8 +89,6 @@ export default function Footer() {
             <Link href="/blog" className="hover:text-yellow-400 transition">お知らせ</Link>
             <Link href="/faq" className="hover:text-yellow-400 transition">よくある質問</Link>
             <Link href="/column" className="hover:text-yellow-400 transition">コラム</Link>
-            {/* スマホでプライバシーポリシーを非表示 */}
-            {/* <Link href="/privacy-policy" className="hover:text-yellow-400 transition md:hidden">プライバシーポリシー</Link> */}
           </nav>
         </div>
 

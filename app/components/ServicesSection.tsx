@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 
 const imageData = [
   {
-    src: '/Business Meeting_edited_edited.jpg',
+    src: '/法人用.png',
     alt: '法人のお客様向け',
     title: '法人のお客様向け',
     description: '警護、警備においての最重要課題は顧客・契約先(クライアント)の安全保障です。それを維持管理するには警護に携わるスタッフの資質が大きく影響します。合同会社L.SECURITYは、状況に応じた的確な判断力と冷静な行動力で、法人の皆様に最適な警備プランを提供します。',
@@ -14,7 +14,7 @@ const imageData = [
     button: '法人のお客様向け 詳しくはこちら'
   },
   {
-    src: '/ボディガード.jpg',
+    src: '/個人用TOP.png',
     alt: '個人のお客様向け',
     title: '個人のお客様向け',
     description: '私たちは、お客様一人ひとりの安全と安心を第一に考え、お客様のライフスタイルやご希望に合わせた警備サービスをお届けします。高度な訓練を受けた警備員が、24時間体制で大切な日常を守ります。安心してお任せください。',
@@ -28,12 +28,9 @@ const sentenceVariants = {
   hidden: { opacity: 1 },
   visible: {
     opacity: 1,
-    transition: {
-      staggerChildren: 0.05,
-    },
+    transition: { staggerChildren: 0.05 },
   },
 };
-
 const letterVariants = {
   hidden: { opacity: 0, y: 10 },
   visible: {
@@ -61,7 +58,6 @@ const ServicesSection = () => {
             viewport={{ once: true, amount: 0.5 }}
             aria-label={`${beforeText} ${afterText}`}
           >
-            {/* 1行目 */}
             {beforeText.split("").map((char, index) => (
               <motion.span
                 key={char + "-" + index}
@@ -71,7 +67,6 @@ const ServicesSection = () => {
                 {char === ' ' ? '\u00A0' : char}
               </motion.span>
             ))}
-            {/* for You */}
             <span className="block md:inline">
               {" "}
               {afterText.split("").map((char, index) => (
@@ -104,14 +99,18 @@ const ServicesSection = () => {
               className="relative bg-gray-900 rounded-2xl p-6 flex flex-col items-center shadow-lg h-full"
               style={{ minHeight: 480 }}
             >
-              <Image
-                src={item.src}
-                alt={item.alt}
-                width={400}
-                height={220}
-                className="rounded-lg object-cover mb-4"
-                style={{ maxHeight: 220, width: '100%', objectFit: 'cover' }}
-              />
+              {/* 画像枠：高さ220pxで固定 */}
+              <div className="w-full rounded-lg overflow-hidden mb-4" style={{ height: 220 }}>
+                <Image
+                  src={item.src}
+                  alt={item.alt}
+                  width={400}
+                  height={220}
+                  className="object-cover w-full h-full"
+                  style={{ width: '100%', height: '100%' }}
+                  priority={idx === 0}
+                />
+              </div>
               <h3 className="text-xl font-bold mb-2">{item.title}</h3>
               <div className="text-base text-gray-200 text-center">{item.description}</div>
               <div className="flex-grow" />

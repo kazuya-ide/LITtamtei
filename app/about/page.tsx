@@ -1,14 +1,14 @@
 "use client";
-import Image from "next/image";
 import { useState } from "react";
+import Image from "next/image";
+import { ShieldCheck, Quote } from "lucide-react";
 
-// みんなの声データ
 const voices = [
   {
     name: "YUTA",
     role: "警備スタッフ",
     message:
-      "警備は想像以上にクリエイティブな仕事です。お客様や仲間の安全を守ることが、自分の成長にも直結しています。L securityの仲間とならどんな現場も乗り越えられる自信があります。",
+      "警備は想像以上にクリエイティブな仕事。お客様や仲間の安全を守ることが、自分の成長にも直結しています。L securityの仲間とならどんな現場も乗り越えられる自信があります。",
     image: "/illust_staff1.svg",
   },
   {
@@ -22,7 +22,7 @@ const voices = [
     name: "MAKOTO",
     role: "リーダー",
     message:
-      "警備の仕事は“誰かの日常”を守る、社会に必要不可欠な役割だと実感しています。会社のこれからを仲間たちと一緒に作っていけるのが嬉しいですね。",
+      "警備の仕事は“誰かの日常”を守る、社会に必要不可欠な役割。会社のこれからを仲間たちと一緒に作っていけるのが嬉しいですね。",
     image: "/illust_staff3.svg",
   },
 ];
@@ -31,119 +31,133 @@ export default function AboutPage() {
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <div className="min-h-screen bg-neutral-900 pb-20">
+    <div className="min-h-screen bg-neutral-950 pb-20">
       {/* HEROタイトル */}
-      <section className="flex flex-col md:flex-row items-center md:items-start gap-10 pt-12 pb-8 px-[8%]">
-        <div className="flex-1 w-full">
-          <h1 className="text-5xl md:text-6xl font-extrabold text-white tracking-tighter leading-tight mb-2">
-            COMPANY<br />INFORMATION
-          </h1>
-          <div className="text-yellow-400 text-xl font-bold mb-6">企業情報</div>
+      <section className="py-16 px-4 flex flex-col items-center justify-center text-center relative overflow-x-hidden">
+        <div className="mb-6 flex items-center justify-center gap-3">
+          <ShieldCheck className="w-12 h-12 text-yellow-400 drop-shadow-[0_0_14px_#fde047bb]" />
+          <span className="text-yellow-300 text-3xl font-extrabold tracking-tight">L security</span>
         </div>
-        <div className="w-full md:w-2/5 max-w-xl aspect-[4/3] rounded-xl overflow-hidden shadow-xl border border-gray-700">
-          <Image
-            src="/8b38290a-62fa-428f-9c84-a3e150bf5cfd.png"
-            alt="会社ビル外観"
-            fill
-            className="object-cover"
-            priority
-            sizes="(max-width: 768px) 100vw, 50vw"
-          />
+        <h1 className="text-4xl md:text-6xl font-extrabold text-white tracking-tighter leading-tight mb-4 drop-shadow-lg">
+          COMPANY<br className="hidden md:inline" /> PROFILE
+        </h1>
+        <div className="inline-block bg-yellow-400/10 rounded-full px-5 py-2 mt-3 mb-2">
+          <span className="text-lg text-yellow-400 font-bold tracking-wide">企業情報</span>
         </div>
+        <p className="max-w-2xl text-gray-200 text-lg mt-4 mb-0">
+          北海道の警備・セキュリティの未来を切り拓く。
+          <br className="hidden md:inline" />
+          信頼とプロフェッショナルの力で、地域社会の安心を守ります。
+        </p>
       </section>
 
       {/* セクションナビ */}
-      <section className="flex flex-wrap gap-4 px-[8%] mb-8 border-b border-neutral-700 pb-3">
-        {["はじめに", "企業理念", "みんなの声", "会社概要", "認可"].map((item) => (
+      <section className="flex flex-wrap gap-4 justify-center px-4 mb-12 border-b border-slate-700 pb-3">
+        {[
+          { label: "はじめに", id: "section1" },
+          { label: "企業理念", id: "section2" },
+          { label: "みんなの声", id: "section3" },
+          { label: "会社概要", id: "section4" },
+          { label: "認可", id: "section5" },
+        ].map((item) => (
           <a
-            key={item}
-            href={`#${item}`}
-            className="uppercase tracking-wider text-lg font-bold text-yellow-400 hover:text-yellow-200 transition"
+            key={item.label}
+            href={`#${item.id}`}
+            className="uppercase tracking-wider text-base font-bold text-yellow-300 hover:text-yellow-200 transition"
           >
-            {item}
+            {item.label}
           </a>
         ))}
       </section>
 
       {/* --- Section 1: はじめに --- */}
-      <section id="section1" className="max-w-5xl mx-auto px-4 py-12 border-b border-neutral-800">
+      <section id="section1" className="max-w-4xl mx-auto px-4 py-12 border-b border-slate-700">
         <div className="flex items-center gap-3 mb-6">
           <span className="w-8 h-1 bg-yellow-400 inline-block rounded"></span>
-          <h2 className="text-2xl md:text-3xl font-bold text-yellow-400">はじめに</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-yellow-300">はじめに</h2>
         </div>
-        <p className="text-gray-100 text-lg leading-relaxed mb-2">
-          警護、警備においての最重要課題は顧客・契約先（クライアント）の安全保障です。<br />
-          それを維持管理するには警護に携わるスタッフの資質が大きく影響します。
-        </p>
-        <p className="text-gray-300 text-base leading-relaxed mt-4">
-          私たちは常に「武道」を通して護身防衛能力の向上に努めています。<br />
-          日々の厳しい練習・生活を通じて強靭な精神力や、実行力、洞察力、判断力、威圧感、責任感、礼節感などを体得することが最大限に必要な要素であると考えています。
+        <p className="text-gray-100 text-lg leading-relaxed mb-4">
+          警備・警護において最も大切な使命は、<span className="font-bold text-yellow-300">お客様・社会の安全保障</span>です。<br />
+          その基盤を支えるのは、現場スタッフ一人ひとりの「人間力」。<br />
+          <span className="text-yellow-300 font-semibold">L security</span>は、日々の訓練や自己研鑽を通じて<br />
+          <span className="text-yellow-200">実行力・洞察力・責任感・礼節</span>を身につけ、信頼に応え続けています。
         </p>
       </section>
 
       {/* --- Section 2: 企業理念 --- */}
-      <section id="section2" className="max-w-5xl mx-auto px-4 py-12 border-b border-neutral-800">
+      <section id="section2" className="max-w-4xl mx-auto px-4 py-12 border-b border-slate-700">
         <div className="flex items-center gap-3 mb-6">
           <span className="w-8 h-1 bg-yellow-400 inline-block rounded"></span>
-          <h2 className="text-2xl md:text-3xl font-bold text-yellow-400">企業理念</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-yellow-300">企業理念</h2>
         </div>
         <p className="text-gray-100 text-lg leading-relaxed mb-2">
-          「すべての人に安全と安心を。」<br />
-          <span className="text-yellow-300 font-semibold">L security</span>は、犯罪や事故を未然に防ぎ、誰もが安心して生活できる社会の実現を目指します。
+          <span className="text-yellow-300 font-semibold">「すべての人に安全と安心を。」</span><br />
+          L securityは、<span className="text-yellow-200">犯罪や事故の未然防止</span>、<span className="text-yellow-200">誰もが安心して暮らせる社会の実現</span>を目指します。
         </p>
-        <ul className="list-disc list-inside mt-3 text-gray-300 text-base space-y-1 pl-5">
-          <li>お客様・社会からの信頼を最も大切にする</li>
-          <li>誠実で真摯な対応を貫く</li>
-          <li>社員が誇りを持ち、成長できる環境を作る</li>
-          <li>プロフェッショナル集団として技術・知識を磨き続ける</li>
-          <li>地域社会の発展に貢献する</li>
+        <ul className="list-disc list-inside mt-4 text-gray-300 text-base space-y-1 pl-5">
+          <li>お客様・社会からの信頼を最優先に</li>
+          <li>誠実で真摯なプロフェッショナル対応</li>
+          <li>社員が誇りと成長を感じられる環境づくり</li>
+          <li>技術・知識の探求とチームワーク強化</li>
+          <li>地域社会の発展と安心に貢献</li>
         </ul>
       </section>
 
       {/* --- Section 3: みんなの声 --- */}
-      <section id="section3" className="max-w-5xl mx-auto px-4 py-12 border-b border-neutral-800">
+      <section id="section3" className="max-w-5xl mx-auto px-4 py-12 border-b border-slate-700">
         <div className="flex items-center gap-3 mb-6">
           <span className="w-8 h-1 bg-yellow-400 inline-block rounded"></span>
-          <h2 className="text-2xl md:text-3xl font-bold text-yellow-400">みんなの声</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-yellow-200">みんなの声</h2>
         </div>
-        <p className="text-gray-200 text-lg mb-8">
-          L securityの現場で活躍する仲間たちの声を紹介します。<br />
-          新しいチームだからこそ、前向きなエネルギーとチャレンジ精神があふれています。
+        <p className="text-gray-300 text-lg mb-10 text-center">
+          L securityの現場で活躍するスタッフの声を紹介します。<br />
+          挑戦と信頼、支え合いの空気がここにはあります。
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-7">
           {voices.map((voice) => (
             <div
               key={voice.name}
-              className="flex flex-col items-center bg-neutral-800 rounded-xl shadow-lg p-6 h-full"
+              className="flex flex-col items-center p-6 h-full rounded-2xl shadow-lg border border-slate-700 bg-neutral-900/80"
             >
-              <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-yellow-400 mb-3 flex items-center justify-center bg-gray-900">
+              <div className="w-20 h-20 rounded-full overflow-hidden border-4 border-yellow-300 mb-4 bg-gray-900">
                 <Image
                   src={voice.image}
                   alt={voice.name}
-                  width={96}
-                  height={96}
+                  width={80}
+                  height={80}
                   className="object-cover w-full h-full"
                 />
               </div>
-              <div className="text-gray-100 text-base mb-3 whitespace-pre-line">&quot;{voice.message}&quot;</div>
-              <div className="mt-auto text-yellow-400 font-bold">{voice.name}</div>
-              <div className="text-gray-400 text-sm">{voice.role}</div>
+              <div className="text-gray-100 text-base mb-4 whitespace-pre-line font-semibold text-center">
+                <Quote className="inline-block w-5 h-5 text-yellow-300 mb-1 mr-1" />
+                {voice.message}
+              </div>
+              <div className="mt-auto text-lg font-bold text-yellow-200">{voice.name}</div>
+              <div className="text-gray-400 text-sm font-medium">{voice.role}</div>
             </div>
           ))}
         </div>
       </section>
 
       {/* --- Section 4: 会社概要 --- */}
-      <section id="section4" className="max-w-3xl mx-auto bg-white rounded-2xl shadow-md px-8 py-12 mt-16 mb-10 border-t-4 border-yellow-400">
+  <section
+  id="section4"
+  className="
+    max-w-3xl mx-auto rounded-2xl shadow-md px-8 py-12 mt-16 mb-10
+    border border-slate-700
+    border-t-4 border-t-yellow-400
+    bg-neutral-900/90
+  "
+>
         <div className="flex items-center gap-3 mb-8">
           <span className="w-8 h-1 bg-yellow-400 inline-block rounded"></span>
-          <h2 className="text-2xl md:text-3xl font-bold text-yellow-700">会社概要</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-yellow-200">会社概要</h2>
         </div>
-        <table className="w-full text-left text-gray-800 border-separate [border-spacing:0.5rem]">
+        <table className="w-full text-left text-gray-100 border-separate [border-spacing:0.5rem]">
           <tbody>
             <tr>
               <th className="font-semibold w-36 align-top">会社名</th>
-              <td>合同会社　LIT</td>
+              <td>合同会社 LIT</td>
             </tr>
             <tr>
               <th className="font-semibold align-top">屋号</th>
@@ -175,18 +189,26 @@ export default function AboutPage() {
       </section>
 
       {/* --- Section 5: 認可 --- */}
-      <section id="section5" className="max-w-3xl mx-auto flex flex-col items-center bg-white rounded-2xl shadow-md px-8 py-14 mb-24 border-t-4 border-yellow-400 relative">
+     <section
+  id="section5"
+  className="
+    max-w-3xl mx-auto flex flex-col items-center rounded-2xl shadow-md px-8 py-14 mb-24
+    border border-slate-700      // 全体グレー
+    border-t-4 border-t-yellow-400 // 上だけ黄色太線
+    relative bg-white
+  "
+>
         <div className="flex items-center gap-3 mb-8">
           <span className="w-8 h-1 bg-yellow-400 inline-block rounded"></span>
-          <h2 className="text-2xl md:text-3xl font-bold text-yellow-700">認可</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-yellow-400">認可</h2>
         </div>
         <button
-          className="w-full max-w-xl overflow-hidden rounded-lg border border-yellow-200 shadow focus:outline-none"
+          className="w-full max-w-xl overflow-hidden rounded-lg border-2 border-yellow-200/40 shadow focus:outline-none bg-white"
           onClick={() => setShowModal(true)}
           tabIndex={0}
           aria-label="認可証明画像を拡大表示"
         >
-          <div className="relative w-full aspect-[3/2] bg-gray-100">
+          <div className="relative w-full aspect-[3/2] bg-white flex items-center justify-center">
             <Image
               src="/アセット 13.svg"
               alt="認可証明"
@@ -197,16 +219,16 @@ export default function AboutPage() {
             />
           </div>
         </button>
-        <div className="mt-2 text-gray-600 text-sm">画像クリックで拡大</div>
+        <div className="mt-2 text-gray-500 text-sm">画像クリックで拡大</div>
         {/* モーダル：認可画像拡大 */}
         {showModal && (
           <div
             className="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center"
             onClick={() => setShowModal(false)}
           >
-            <div className="bg-white rounded-xl shadow-xl p-4 max-w-3xl w-[96vw] flex flex-col items-center relative">
+            <div className="bg-white rounded-xl shadow-xl p-4 max-w-3xl w-[96vw] flex flex-col items-center relative border border-yellow-200/40">
               <button
-                className="absolute top-2 right-2 bg-yellow-500 hover:bg-yellow-700 text-white font-bold rounded-full p-1 w-8 h-8 flex items-center justify-center focus:outline-none"
+                className="absolute top-2 right-2 bg-yellow-500 hover:bg-yellow-600 text-white font-bold rounded-full p-1 w-8 h-8 flex items-center justify-center focus:outline-none"
                 onClick={(e) => {
                   e.stopPropagation();
                   setShowModal(false);
@@ -228,6 +250,10 @@ export default function AboutPage() {
             </div>
           </div>
         )}
+        <div className="mt-5 text-gray-700 text-sm text-center">
+          北海道公安委員会認定（番号：第123456号）<br />
+          許可証原本の閲覧・写しの提出もご相談に応じて対応します。
+        </div>
       </section>
     </div>
   );
