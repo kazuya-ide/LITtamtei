@@ -86,7 +86,7 @@ export default function Footer() {
             <Link href="/business" className="hover:text-yellow-400 transition">法人のお客様</Link>
             <Link href="/personal" className="hover:text-yellow-400 transition">個人のお客様</Link>
             <Link href="/about" className="hover:text-yellow-400 transition">企業情報</Link>
-            <Link href="/blog" className="hover:text-yellow-400 transition">お知らせ</Link>
+            <Link href="/news" className="hover:text-yellow-400 transition">お知らせ</Link>
             <Link href="/faq" className="hover:text-yellow-400 transition">よくある質問</Link>
             <Link href="/column" className="hover:text-yellow-400 transition">コラム</Link>
           </nav>

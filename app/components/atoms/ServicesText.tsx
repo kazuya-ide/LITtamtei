@@ -1,6 +1,6 @@
+"use client";
 import React from 'react';
 import styled from 'styled-components';
-// framer-motion をインポート
 import { motion } from 'framer-motion';
 
 // Container もアニメーションさせる場合は motion コンポーネントにする (任意)

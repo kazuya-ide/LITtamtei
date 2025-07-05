@@ -1,17 +1,18 @@
-// components/VideoHeader.tsx
+// app/components/VideoFade.tsx
 "use client";
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState } from "react";
 
-const VideoHeader = () => {
-  const videoRef = useRef(null);
+export default function VideoFade() {
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [opacity, setOpacity] = useState(1);
 
   useEffect(() => {
     const handleScroll = () => {
       if (videoRef.current) {
+        const videoElement = videoRef.current;
+        const videoTop = videoElement.offsetTop;
         const scrollY = window.scrollY;
-        const fadeOutHeight = 500;
-
+        const fadeOutHeight = videoTop + videoElement.offsetHeight;
         if (scrollY < fadeOutHeight) {
           setOpacity(1 - scrollY / fadeOutHeight);
         } else {
@@ -21,22 +22,19 @@ const VideoHeader = () => {
     };
 
     window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
     <video
       ref={videoRef}
-      src="L security 警備 北海道.mp4"
+      src="6.mp4"
       autoPlay
       loop
       muted
       playsInline
       style={{
-        position: 'fixed',
+        position: 'absolute',
         top: 0,
         left: 0,
         width: '100%',
@@ -48,6 +46,4 @@ const VideoHeader = () => {
       }}
     />
   );
-};
-
-export default VideoHeader;
+}

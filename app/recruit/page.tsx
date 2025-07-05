@@ -4,11 +4,69 @@ import Link from "next/link";
 import { Briefcase } from "lucide-react";
 import { motion } from "framer-motion";
 import Particles from "react-tsparticles";
+import { PieChart, Pie, Cell } from "recharts";
+import type { PieLabelRenderProps } from "recharts";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
   show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
 };
+
+const generationData = [
+  { name: "10代", value: 5 },
+  { name: "20代", value: 35 },
+  { name: "30代", value: 30 },
+  { name: "40代", value: 20 },
+  { name: "50代以上", value: 10 },
+];
+const COLORS = ["#bae6fd", "#60a5fa", "#fbbf24", "#f87171", "#a3e635"];
+
+function renderCustomizedLabel({
+  cx,
+  cy,
+  midAngle,
+  outerRadius,
+  percent,
+  name,
+}: PieLabelRenderProps & { name?: string }) {
+  const RADIAN = Math.PI / 180;
+  // outerRadiusは number | string | function の可能性があるので型ガード
+  const outRad = typeof outerRadius === "number"
+    ? outerRadius
+    : typeof outerRadius === "string"
+      ? Number(outerRadius)
+      : 140; // 予備値
+  const cxx = typeof cx === "number" ? cx : Number(cx);
+  const cyy = typeof cy === "number" ? cy : Number(cy);
+
+  const radius = outRad + 32;
+  const x = cxx + radius * Math.cos(-midAngle * RADIAN);
+  const y = cyy + radius * Math.sin(-midAngle * RADIAN);
+
+  if ((percent ?? 0) < 0.04) return null;
+
+  return (
+    <text
+      x={x}
+      y={y}
+      fill="#fff"
+      textAnchor={x > cxx ? "start" : "end"}
+      dominantBaseline="central"
+      fontSize={15}
+      fontWeight={name === "20代" || name === "30代" ? "bold" : "normal"}
+      style={{
+        paintOrder: "stroke",
+        stroke: "#222",
+        strokeWidth: 5,
+        strokeLinejoin: "round",
+        strokeOpacity: 0.7,
+      }}
+    >
+      <tspan fill="#fff">{name}</tspan>
+    </text>
+  );
+}
+
 
 export default function RecruitPage() {
   return (
@@ -72,6 +130,85 @@ export default function RecruitPage() {
         </div>
       </motion.section>
 
+      {/* 若手比率セクション（黒系リッチカード） */}
+      <motion.section
+        className="
+          relative z-10 max-w-3xl mx-auto
+          rounded-3xl bg-neutral-900/95 shadow-2xl border border-slate-700
+          p-8 md:p-12 mb-10 flex flex-col items-center
+        "
+        variants={fadeInUp}
+        initial="hidden"
+        animate="show"
+        transition={{ delay: 0.09 }}
+      >
+        <div className="w-full flex flex-col items-center">
+          <h3 className="text-2xl md:text-2xl font-bold text-blue-200 mb-2 text-center drop-shadow">
+            若い世代が活躍中！
+          </h3>
+          <p className="text-neutral-100 mb-6 text-center max-w-lg font-semibold">
+            L securityは20代・30代の若手スタッフが主力として現場で活躍しています。<br />
+            「やってみたい」「地域を守りたい」という想いがあれば大歓迎。<br />
+            新しい仲間を心よりお待ちしています！
+          </p>
+          <div className="w-full flex justify-center mb-6">
+            <PieChart width={450} height={360}>
+              <Pie
+                data={generationData}
+                cx="50%"
+                cy="50%"
+                innerRadius={110}
+                outerRadius={140}
+                dataKey="value"
+                label={renderCustomizedLabel}
+                labelLine={true}
+                paddingAngle={2}
+                stroke="#222"
+              >
+                {generationData.map((entry, idx) => (
+                  <Cell key={idx} fill={COLORS[idx % COLORS.length]} />
+                ))}
+              </Pie>
+            </PieChart>
+          </div>
+          <div className="w-full flex justify-center">
+            <table className="table-auto border border-slate-600 rounded-lg text-base w-64 shadow bg-neutral-950/80">
+              <thead>
+                <tr className="bg-blue-900/30">
+                  <th className="px-2 py-1 text-white">年代</th>
+                  <th className="px-2 py-1 text-white">割合</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="px-2 py-1 text-neutral-100">10代</td>
+                  <td className="px-2 py-1 text-neutral-100">5%</td>
+                </tr>
+                <tr>
+                  <td className="px-2 py-1 text-neutral-100">20代</td>
+                  <td className="px-2 py-1 text-blue-200 font-bold">35%</td>
+                </tr>
+                <tr>
+                  <td className="px-2 py-1 text-neutral-100">30代</td>
+                  <td className="px-2 py-1 text-blue-200 font-bold">30%</td>
+                </tr>
+                <tr>
+                  <td className="px-2 py-1 text-neutral-100">40代</td>
+                  <td className="px-2 py-1 text-neutral-100">20%</td>
+                </tr>
+                <tr>
+                  <td className="px-2 py-1 text-neutral-100">50代以上</td>
+                  <td className="px-2 py-1 text-neutral-100">10%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div className="text-neutral-400 text-sm mt-4 text-center">
+            ※ 20代・30代のスタッフが全体の <span className="font-bold text-blue-200">65%</span> を占めています
+          </div>
+        </div>
+      </motion.section>
+
       {/* 職種・待遇 */}
       <motion.section
         className="relative z-10 max-w-3xl mx-auto rounded-3xl bg-neutral-900/95 shadow-xl border border-slate-700 p-8 md:p-12 mb-10"
@@ -131,8 +268,8 @@ export default function RecruitPage() {
           <b>給与例</b>：週1日→4.8万円／週3日→14.4万円／週5日→24万円（月4週換算）
         </div>
         <div className="text-neutral-400 text-sm mb-2">
-          ※全現場禁煙、年齢18歳以上（警備業法による）<br />
-          幅広い世代が活躍中。上下関係もなく働きやすい職場です。
+          ※年齢18歳以上（警備業法による）<br />
+          幅広い世代が活躍中。働きやすい職場です。
         </div>
       </motion.section>
 

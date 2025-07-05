@@ -12,7 +12,7 @@ const navLinks = [
   { label: "事業情報", href: "/projects" },
   { label: "法人のお客様", href: "/business" },
   { label: "個人のお客様", href: "/personal" },
-  { label: "最新情報", href: "/blog" },
+  { label: "最新情報", href: "/news" },
   { label: "採用情報", href: "/recruit" },
   { label: "お問い合わせ", href: "/contact" },
 ];
