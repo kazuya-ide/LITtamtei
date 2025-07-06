@@ -1,41 +1,38 @@
 "use client";
-import React from 'react';
-import styled from 'styled-components';
-import Link from 'next/link';
-
-const Button = styled.button`
-  background-color: black;
-  color: white;
-  border: 1px solid white;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  &:hover {
-    background-color: #333;
-  }
-`;
-
-const Arrow = styled.span`
-  border: solid white;
-  border-width: 0 2px 2px 0;
-  display: inline-block;
-  padding: 3px;
-  transform: rotate(-45deg);
-  -webkit-transform: rotate(-45deg);
-`;
+import React from "react";
+import Link from "next/link";
 
 const MoreButton = () => {
   return (
     <Link href="/projects" passHref legacyBehavior>
-      <a style={{ textDecoration: "none" }}>
-        <Button>
-          <Arrow />
+      <a className="no-underline">
+        <button
+          className="
+            bg-black text-white border border-white py-2 px-5 text-base cursor-pointer
+            flex items-center justify-center gap-2
+            hover:bg-gray-800 transition
+            rounded
+          "
+        >
+          {/* 矢印（Arrow）をCSSで再現 */}
+          <span
+            className="
+              inline-block
+              border-solid border-white
+              border-0 border-b-2 border-r-2
+              p-1
+              rotate-[-45deg]
+              mr-1
+              w-2 h-2
+            "
+            style={{
+              borderWidth: "0 2px 2px 0",
+              width: "10px",
+              height: "10px",
+            }}
+          ></span>
           MORE
-        </Button>
+        </button>
       </a>
     </Link>
   );

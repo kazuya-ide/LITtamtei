@@ -81,8 +81,8 @@ const config: Config = {
         }
       },
       backgroundImage: {
-        'grid-pattern': '', // 値を空の文字列に設定
-        'grid-pattern-light': '' // 値を空の文字列に設定
+        'grid-pattern': '', // 空の文字列
+        'grid-pattern-light': ''
       },
       rotate: {
         'random-1': '-9deg',
@@ -93,8 +93,9 @@ const config: Config = {
       },
     }
   },
-  plugins: [require("tailwindcss-animate")], // tailwindcss-animateをpluginsに追加
-  
-}
+  plugins: [
+    // ここは空配列でもOK。今は何も指定しない。
+  ],
+};
 
 export default config;
