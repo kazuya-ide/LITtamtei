@@ -3,48 +3,59 @@ import Link from 'next/link';
 
 export default function CompanyInformation() {
   return (
-    <div className="relative flex flex-col md:flex-row items-stretch w-full overflow-hidden px-[10%]">
-      {/* Text Section */}
-      <div className="relative w-full md:w-7/12 p-6 md:p-10 bg-yellow-500 order-1">
-        <div
-          className="absolute top-0 right-0 bottom-0 left-auto w-48 bg-yellow-500 transform skew-x-[-20deg] origin-bottom-right shadow-none hidden md:block"
-          style={{ zIndex: 1, right: '0px' }}
-        />
-        <div className="relative" style={{ zIndex: 2 }}>
-          <h1 className="text-3xl md:text-5xl font-bold text-black mb-3 md:mb-6">COMPANY</h1>
-          <h1 className="text-3xl md:text-5xl font-bold text-black mb-4 md:mb-8">INFORMATION</h1>
-          <h2 className="text-lg md:text-xl text-black mb-3 md:mb-4">企業情報</h2>
-          <p className="text-sm text-black mb-1 md:mb-2">
-            私たちの使命は、お客様と社会の日常を守り抜くこと。
-          </p>
-          <p className="text-sm text-black mb-1 md:mb-2">
-            最前線で求められるのは、緻密な観察力と冷静な判断力、そして一瞬の決断力です。
-          </p>
-          <p className="text-sm text-black mb-1 md:mb-2">
-            L.SECURITYは最新のノウハウと豊富な現場経験を活かし、全スタッフがプロ意識と誇りを持って警備業務に従事しています。
-          </p>
-          <p className="text-sm text-black mb-3 md:mb-4">
-            柔軟な対応力と、どんな状況でも「安心」を提供する揺るぎない覚悟で、これからも信頼される警備のスペシャリスト集団であり続けます。
-          </p>
-          <div className="mt-6 md:mt-auto w-fit">
-            <Link href="/about" >
-              <div className="group relative border border-black px-6 py-2 inline-block text-black hover:bg-black hover:text-yellow-500 transition-colors duration-300">
-                <span className="mr-3">MORE</span>
-              </div>
-            </Link>
-          </div>
-        </div>
+    <section className="flex flex-col md:flex-row w-full bg-[#ededed]">
+      {/* テキスト */}
+      <div className="flex-1 flex flex-col justify-center px-8 py-10 bg-[#ededed]">
+        <span className="text-xs font-bold uppercase text-[#bbb] tracking-widest mb-2">
+          COMPANY INFORMATION
+        </span>
+        <h2 className="text-3xl md:text-4xl font-extrabold text-[#232323] mb-3">
+          グループについて
+        </h2>
+        <p className="text-lg text-[#666] mb-5">
+          LITグループは多様な分野のプロフェッショナルが集い、地域社会の未来を支えます。
+        </p>
+        <ul className="mb-8 space-y-2">
+          <li className="flex items-center">
+            <span className="w-2 h-2 rounded-full bg-[#bbb] mr-3"></span>
+            <span className="font-semibold text-[#232323]">
+              建設・不動産（北海工務店）
+            </span>
+          </li>
+          <li className="flex items-center">
+            <span className="w-2 h-2 rounded-full bg-[#bbb] mr-3"></span>
+            <span className="font-semibold text-[#232323]">
+              食・飲食サービス（味扉）
+            </span>
+          </li>
+          <li className="flex items-center">
+            <span className="w-2 h-2 rounded-full bg-[#bbb] mr-3"></span>
+            <span className="font-semibold text-[#232323]">
+              IT・セキュリティ（L.SECURITY）
+            </span>
+          </li>
+        </ul>
+        <Link
+          href="/group-companies"
+          className="inline-block px-7 py-2 rounded-full bg-[#ededed] text-[#232323] font-bold hover:bg-[#232323] hover:text-white transition"
+        >
+          OUR GROUP COMPANIES
+        </Link>
       </div>
-
-      {/* Image Section */}
-      <div className="hidden md:block md:relative md:w-6/12 md:order-2 bg-white">
+      {/* イメージ */}
+      <div className="flex-1 relative min-h-[320px] hidden md:block bg-[#ededed]">
         <Image
-          src="/名称未設定-10.png"
-          alt="Security Image"
+          src="/ビジネス握手.jpg"
+          alt="Group Overview"
           fill
-          style={{ objectFit: 'cover' }}
+          style={{
+            objectFit: 'cover',
+            borderRadius: "1.5rem",
+            filter: "grayscale(1)",
+            backgroundColor: "#ededed",
+          }}
         />
       </div>
-    </div>
+    </section>
   );
 }

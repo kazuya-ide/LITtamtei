@@ -2,18 +2,26 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
-import Image from 'next/image';
+import { useState } from "react";
+import Image from "next/image";
 
-// ▼ メニュー項目を一元管理
+// ナビメニュー
 const navLinks = [
-  { label: "ホーム", href: "/" },
-  { label: "企業情報", href: "/about" },
-  { label: "事業情報", href: "/projects" },
-  { label: "法人のお客様", href: "/business" },
-  { label: "個人のお客様", href: "/personal" },
-  { label: "最新情報", href: "/news" },
+  { label: "TOP", href: "https://www.lit4.net/" },
+  { label: "北海工務店", href: "https://www.sapporo-builderr.com/" },
+  {
+    label: "AJITO",
+    href: "https://www.hotpepper.jp/strJ003324016/?vos=evhpppg0007&pog=mt(b)ti(kwd-2315813023436)dv(c)cr(738602708295)fi()gi(142320910489)ci(17559560127)lc(9197678)ps()nw(g)&gclsrc=aw.ds&gad_source=1&gad_campaignid=17559560127&gbraid=0AAAAADSGJMF8UfGYenHmXncxBoGksCJdF&gclid=Cj0KCQjw267GBhCSARIsAOjVJ4FvKhbtUyL-OaINmCU5Z7tA3F__LdJTakr_XpoBgMLw0RkCTi2mr3EaApipEALw_wcB",
+  },
+  { label: "Lsecurity", href: "/product" },
+  { label: "探偵業", href: "/tantei" },
+  { label: "会社情報", href: "/about" },
   { label: "採用情報", href: "/recruit" },
+];
+
+// 右側ボタン
+const rightButtons = [
+  { label: "お役立ち資料", href: "/docs" },
   { label: "お問い合わせ", href: "/contact" },
 ];
 
@@ -21,42 +29,44 @@ const Header = () => {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  useEffect(() => {
-    document.body.style.overflow = isMenuOpen ? 'hidden' : 'auto';
-    return () => {
-      document.body.style.overflow = 'auto';
-    };
-  }, [isMenuOpen]);
-
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  // === ページによる背景色切り替え ===
+  const headerBg =
+    pathname === "/tantei"
+      ? "bg-emerald-50/90 border-emerald-300"
+      : "bg-[#ededed]/90 border-gray-300";
 
   return (
-    <header className="py-4 sticky top-0 z-50 bg-transparent">
-      <div className="container mx-auto flex justify-between items-center px-4 text-white">
-
-        {/* ロゴ＋テキスト */}
-        <Link href="/" className="flex items-center gap-2">
-          <div className="relative h-8 w-auto">
+    <header
+      className={`fixed top-0 w-full z-50 backdrop-blur shadow-sm border-b transition-colors duration-300 ${headerBg}`}
+    >
+      <div className="mx-auto max-w-[1440px] flex items-center justify-between h-20 px-6">
+        {/* ロゴ */}
+        <Link href="/" className="flex items-center gap-3 min-w-[150px]">
+          <div className="relative w-10 h-10">
             <Image
-              src="/L-securiyロゴ_edited.png"
-              alt="L Security Logo"
-              height={32}
-              width={120}
+              src="/lit-logo.jpg"
+              alt="LLC-LIT ロゴ"
+              fill
+              className="object-contain"
+              sizes="40px"
               priority
-              className="object-contain h-full w-auto"
             />
           </div>
-          <span className="text-xl font-bold">L.SECURITY</span>
+          <span className="text-2xl font-extrabold tracking-tight text-[#222]">
+            LLC-LIT
+          </span>
         </Link>
 
-        {/* PCメニュー */}
-        <nav className="hidden md:flex items-center gap-4">
+        {/* PCナビ */}
+        <nav className="hidden lg:flex items-center gap-7 text-base font-bold tracking-wide text-[#232323]">
           {navLinks.map(({ label, href }) => (
             <Link
               key={href}
               href={href}
-              className={`py-2 px-4 hover:text-yellow-400 transition-colors duration-300 ${
-                pathname === href ? 'text-yellow-400 font-bold' : ''
+              className={`px-1 py-2 transition-colors ${
+                pathname === href
+                  ? "text-black underline underline-offset-4"
+                  : "hover:text-[#666]"
               }`}
             >
               {label}
@@ -64,67 +74,98 @@ const Header = () => {
           ))}
         </nav>
 
-        {/* ハンバーガーメニュー */}
-        <div className="md:hidden flex items-center">
-          <button
-            onClick={toggleMenu}
-            className="border-none cursor-pointer transition-colors duration-300 flex items-center"
-            aria-label={isMenuOpen ? 'Close Menu' : 'Open Menu'}
-          >
-            {/* ハンバーガー */}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className={`w-8 h-8 ${isMenuOpen ? 'hidden' : 'block'}`}
+        {/* 右側ボタン */}
+        <div className="hidden lg:flex gap-3">
+          {rightButtons.map(({ label, href }) => (
+            <Link
+              key={href}
+              href={href}
+              className="rounded-full border border-gray-300 bg-white px-5 py-2 font-bold text-sm text-[#232323] shadow-md hover:bg-[#232323] hover:text-white hover:shadow-lg transition-all duration-150"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-            </svg>
-            {/* 閉じる */}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className={`w-8 h-8 ${isMenuOpen ? 'block' : 'hidden'}`}
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
+              {label}
+            </Link>
+          ))}
         </div>
 
-        {/* モバイル用メニュー */}
-        <div
-          className={`fixed top-0 right-0 h-full z-40 bg-neutral-900 text-white transition-all duration-300 shadow-lg ${
-            isMenuOpen ? 'w-[75vw] max-w-xs opacity-100' : 'w-0 opacity-0 pointer-events-none'
-          }`}
-          style={{ minWidth: '240px' }}
+        {/* ハンバーガーメニュー */}
+        <button
+          className="block lg:hidden ml-2"
+          onClick={() => setIsMenuOpen(true)}
+          aria-label="メニューを開く"
         >
-          <nav className="flex flex-col gap-4 p-8 pt-20">
+          <svg
+            width={32}
+            height={32}
+            fill="none"
+            stroke="#232323"
+            strokeWidth={2}
+            viewBox="0 0 24 24"
+          >
+            <path d="M4 7h16M4 12h16M4 17h16" strokeLinecap="round" />
+          </svg>
+        </button>
+      </div>
+
+      {/* モバイルメニュー */}
+      <div
+        className={`fixed inset-0 z-[99] bg-black bg-opacity-40 transition-all duration-300 ${
+          isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
+        }`}
+        onClick={() => setIsMenuOpen(false)}
+        aria-hidden
+      >
+        <nav
+          className={`absolute right-0 top-0 h-full w-[75vw] max-w-sm ${
+            pathname === "/tantei" ? "bg-emerald-100" : "bg-[#ededed]"
+          } p-8 pt-24 shadow-2xl transition-transform duration-300 ${
+            isMenuOpen ? "translate-x-0" : "translate-x-full"
+          }`}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <button
+            className="absolute top-7 right-7"
+            onClick={() => setIsMenuOpen(false)}
+            aria-label="閉じる"
+          >
+            <svg
+              width={28}
+              height={28}
+              viewBox="0 0 24 24"
+              stroke="#222"
+              strokeWidth={2}
+            >
+              <path d="M6 6l12 12M6 18L18 6" strokeLinecap="round" />
+            </svg>
+          </button>
+          <div className="flex flex-col gap-6">
             {navLinks.map(({ label, href }) => (
               <Link
                 key={href}
                 href={href}
-                className={`text-lg font-bold py-2 px-4 rounded hover:bg-yellow-400 hover:text-black transition ${
-                  pathname === href ? 'text-yellow-400 underline' : ''
+                className={`text-lg font-bold py-2 ${
+                  pathname === href
+                    ? "text-black underline"
+                    : "text-[#232323] hover:text-black"
                 }`}
                 onClick={() => setIsMenuOpen(false)}
               >
                 {label}
               </Link>
             ))}
-          </nav>
-        </div>
-        {/* 背景クリックでメニュー閉じる */}
-        {isMenuOpen && (
-          <div
-            className="fixed inset-0 z-30 bg-black bg-opacity-40 md:hidden"
-            onClick={() => setIsMenuOpen(false)}
-          />
-        )}
+            <div className="mt-6 flex flex-col gap-2">
+              {rightButtons.map(({ label, href }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  className="rounded-full border border-gray-300 bg-white px-5 py-2 font-bold text-[#232323] shadow hover:bg-[#232323] hover:text-white transition"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {label}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </nav>
       </div>
     </header>
   );
