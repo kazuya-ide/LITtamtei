@@ -46,7 +46,7 @@ export default function Reasons() {
       <div className="max-w-6xl mx-auto px-4">
         {/* 見出し */}
         <h2 className="text-2xl md:text-3xl font-extrabold text-emerald-900 mb-4">
-          LIT探偵事務所が選ばれる理由
+          L secret serviceが選ばれる理由
         </h2>
         <p className="text-gray-600 mb-10">
           私たちは料金の透明性、スピード感、アフターサポートまで、安心してご依頼いただける体制を整えています。
