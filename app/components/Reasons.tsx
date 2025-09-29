@@ -11,7 +11,7 @@ const reasons = [
   {
     id: 2,
     title: "圧倒的なスピード感と調査力",
-    desc: "全国どこでも対応可能。正確かつ迅速な調査で、お客様のご要望に応えます。調査後のフォローも万全です。",
+    desc: "北海道ならどこでも対応可能。正確かつ迅速な調査で、お客様のご要望に応えます。調査後のフォローも万全です。",
     icon: <FaFileAlt className="w-10 h-10 text-emerald-700" />,
   },
   {
@@ -46,7 +46,7 @@ export default function Reasons() {
       <div className="max-w-6xl mx-auto px-4">
         {/* 見出し */}
         <h2 className="text-2xl md:text-3xl font-extrabold text-emerald-900 mb-4">
-          L secret serviceが選ばれる理由
+          L Secret Agentが選ばれる理由
         </h2>
         <p className="text-gray-600 mb-10">
           私たちは料金の透明性、スピード感、アフターサポートまで、安心してご依頼いただける体制を整えています。

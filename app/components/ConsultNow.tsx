@@ -18,7 +18,7 @@ export default function ConsultNow() {
                 秘密厳守・匿名相談可
               </span>
               <h2 className="mt-4 text-2xl font-extrabold tracking-tight text-emerald-900 md:text-3xl">
-                今すぐL secret serviceにご相談ください
+                今すぐL Secret Agentにご相談ください
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-neutral-700 md:text-base">
                 警察OBの実地経験と弁護士連携で、法的に有効な証拠収集と安心のサポートを。

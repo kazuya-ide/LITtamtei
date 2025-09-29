@@ -1,28 +1,27 @@
 // app/page.tsx
 import HeroSection from "./components/Herosection";
 import CompanyInformation from "./components/CompanyInfo";
-
 import NewsSection from "./components/NewsSection";
 import HeroVideo from "./components/HeroVideo";
-
 import GroupCompaniesCarousel from "./components/GroupCompaniesCarousel";
+
 export default function Home() {
   return (
-    <div style={{ position: 'relative', minHeight: '150vh', overflowX: 'hidden' }}>
-   <HeroVideo/>
-<HeroSection/>
-    
-      <div style={{ position: 'relative', zIndex: 1, marginTop: '4rem' }}>
+    <main className="relative overflow-x-hidden">
+      {/* ページ先頭に動画ブロック */}
+      <div className="w-screen">
+        <HeroVideo />
+      </div>
+
+      {/* 下のコンテンツ */}
+      <div className="relative z-10 bg-white mt-16">
+        <HeroSection />
         <CompanyInformation />
         <div className="mt-20" />
-        <GroupCompaniesCarousel/>
-       
-        
+        <GroupCompaniesCarousel />
         <NewsSection />
-        <div className="mt-10" />
-      
         <div className="mb-20" />
       </div>
-    </div>
+    </main>
   );
 }

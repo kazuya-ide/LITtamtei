@@ -15,7 +15,7 @@ export default function AboutDetective() {
             北海道の探偵事務所・浮気調査
           </p>
           <h2 className="mt-2 text-3xl md:text-4xl font-extrabold text-emerald-900 leading-tight">
-          L secret serviceについて
+          L Secret Agentについて
           </h2>
 
           <h3 className="mt-6 text-lg md:text-xl font-bold text-emerald-900">
